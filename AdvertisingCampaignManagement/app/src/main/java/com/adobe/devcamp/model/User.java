@@ -20,6 +20,14 @@
 
 package com.adobe.devcamp.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +38,12 @@ public final class User {
     private final String email;
     private final Profile profile;
 
-    public User(String firstName, String lastName, String email, Profile profile) {
+    @JsonCreator
+    public User(
+            @JsonProperty(value="firstName") String firstName,
+            @JsonProperty(value="lastName")String lastName,
+            @JsonProperty(value="email")String email,
+            @JsonProperty(value="profile")Profile profile) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -85,12 +98,21 @@ public final class User {
                 '}';
     }
 
+
     public static final class Profile {
         private final Gender gender;
+
+        @JsonSerialize(using = LocalDateSerializer.class)
+        @JsonDeserialize(using = LocalDateDeserializer.class)
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         private final LocalDate dateOfBirth;
         private final List<Domain> interests;
 
-        public Profile(Gender gender, LocalDate dateOfBirth, List<Domain> interests) {
+        @JsonCreator
+        public Profile(
+                @JsonProperty(value="gender")Gender gender,
+                @JsonProperty(value="dateOfBirth")LocalDate dateOfBirth,
+                @JsonProperty(value="interests")List<Domain> interests) {
             this.gender = gender;
             this.dateOfBirth = dateOfBirth;
             this.interests = interests;
