@@ -20,6 +20,9 @@
 
 package com.adobe.devcamp.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +30,9 @@ public final class Advertiser {
     private final String name;
     private final List<Integer> publishers;
 
-    public Advertiser(String name, List<Integer> publishers) {
+    @JsonCreator
+    public Advertiser(@JsonProperty("name") String name,
+                      @JsonProperty("publishers") List<Integer> publishers) {
         this.name = name;
         this.publishers = publishers;
     }
