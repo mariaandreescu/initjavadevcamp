@@ -1,6 +1,6 @@
 # Scheduling
 
-## Email organizers:
+## To contact organizers, please send an email to:
 grp-devcamp-2019@adobe.com
 
 ## Full workshop
