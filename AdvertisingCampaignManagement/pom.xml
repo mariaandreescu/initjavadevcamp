@@ -12,6 +12,7 @@
     <modules>
         <module>provisioning</module>
         <module>app</module>
+        <module>client</module>
     </modules>
 
     <properties>
